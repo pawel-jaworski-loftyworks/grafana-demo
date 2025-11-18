@@ -51,8 +51,8 @@ public class RequestIdInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         // Clean up MDC after request is complete to prevent memory leaks
+        // Note: We only remove requestId, not appId, as appId should persist across all logs
         MDC.remove(REQUEST_ID_MDC_KEY);
-        MDC.remove(APP_ID_MDC_KEY);
     }
 }
 
