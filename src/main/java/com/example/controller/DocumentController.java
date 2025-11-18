@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import com.example.client.UserServiceClient;
+import com.example.model.User;
 import com.example.service.DocumentService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +15,16 @@ import java.util.UUID;
 @Profile("document-service")
 public class DocumentController {
     private final DocumentService documentService;
+    private final UserServiceClient userServiceClient;
 
-    public DocumentController(DocumentService documentService) {
+    public DocumentController(DocumentService documentService, UserServiceClient userServiceClient) {
         this.documentService = documentService;
+        this.userServiceClient = userServiceClient;
     }
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<String>> getDocumentsByUserId(@PathVariable UUID userId) {
+        ResponseEntity<User> user = userServiceClient.getUserById(userId);
         List<String> documents = documentService.getDocumentsByUserId(userId);
         return ResponseEntity.ok(documents);
     }
