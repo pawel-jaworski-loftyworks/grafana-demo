@@ -1,4 +1,5 @@
 # Multi-stage Dockerfile for Spring Boot application
+# Automatically builds for native platform (arm64 on Mac, amd64 on Linux)
 # Build argument to specify which profile to activate
 ARG PROFILE=user-service
 
@@ -17,7 +18,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Run the application
-FROM registry.loftyworks.systems/docker-hub/alpine/java:21-jdk
+FROM registry.loftyworks.systems/docker-hub/eclipse-temurin:21-jdk-alpine
 WORKDIR /app
 
 # Create a non-root user
