@@ -36,7 +36,7 @@ public class UserController {
         log.info("Fetching user by id: {}", id);
         return userService.getUserById(id)
                 .map(user -> {
-                    log.info("User found: {}", user.getUsername());
+                    log.info("User found: {}", user.username());
                     return ResponseEntity.ok(user);
                 })
                 .orElseGet(() -> {
@@ -44,5 +44,12 @@ public class UserController {
                     return ResponseEntity.notFound().build();
                 });
     }
+
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        log.info("Creating user: {}", user.username());
+        return userService.createUser(user);
+    }
+
 }
 

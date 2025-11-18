@@ -39,6 +39,7 @@ scrape_configs:
             requestId: requestId
             appId: appId
             userId: userId
+            stackTrace: stack_trace
 
       # Extract timestamp if available
       - timestamp:

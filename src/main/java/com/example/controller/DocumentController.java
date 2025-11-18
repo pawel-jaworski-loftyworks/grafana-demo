@@ -33,7 +33,7 @@ public class DocumentController {
     @GetMapping("/user/{userId}")
     public List<String> getDocumentsByUserId(@PathVariable UUID userId) {
         User user = userServiceClient.getUserById(userId);
-        log.info("Fetching documents for user: {} {}", userId, user.getUsername());
+        log.info("Fetching documents for user: {} {}", userId, user.username());
         List<String> permissions = permissionServiceClient.getPermissionsByUserId(userId);
         if (permissions == null || permissions.contains("document-read")) {
             log.info("User has no permission to fetch documents");
