@@ -48,5 +48,10 @@
     <logger name="com.example" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE_JSON"/>
     </logger>
+
+    <!-- Feign client logger - set to INFO to see request/response logs -->
+    <logger name="com.example.client" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE_JSON"/>
+    </logger>
 </configuration>
 

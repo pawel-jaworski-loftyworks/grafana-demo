@@ -48,7 +48,7 @@ public class FeignClientConfig {
 
     /**
      * Configure logging level for Feign clients.
-     * 
+     *
      * @return Logger.Level for Feign client logging
      */
     @Bean
@@ -56,6 +56,18 @@ public class FeignClientConfig {
         // FULL: Log headers, body, and metadata for both request and response
         // Other options: NONE, BASIC, HEADERS
         return Logger.Level.FULL;
+    }
+
+    /**
+     * Configure custom single-line logger for Feign clients.
+     * This logger outputs all request/response information in a single log line
+     * to work better with structured JSON logging.
+     *
+     * @return Custom single-line logger
+     */
+    @Bean
+    public Logger feignLogger() {
+        return new SingleLineLogger();
     }
 }
 
