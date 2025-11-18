@@ -2,7 +2,7 @@
 # Multi-stage build for optimized image size
 
 # Stage 1: Build the application
-FROM maven:3.9-eclipse-temurin-17 AS build
+FROM registry.loftyworks.systems/docker-hub/maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
 
 # Copy pom.xml and download dependencies (cached layer)
@@ -16,7 +16,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Run the application
-FROM eclipse-temurin:17-jre-alpine
+FROM registry.loftyworks.systems/docker-hub/alpine/java:21-jdk
 WORKDIR /app
 
 # Create a non-root user
@@ -28,7 +28,7 @@ COPY --from=build /app/target/*.jar app.jar
 
 # Set the profile for permission service
 ENV SPRING_PROFILES_ACTIVE=permission-service
-ENV SERVER_PORT=8080
+ENV SERVER_PORT=8082
 
 # Expose port
 EXPOSE 8080

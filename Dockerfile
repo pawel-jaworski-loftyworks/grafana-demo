@@ -3,7 +3,7 @@
 ARG PROFILE=user-service
 
 # Stage 1: Build the application
-FROM maven:3.9-eclipse-temurin-17 AS build
+FROM registry.loftyworks.systems/docker-hub/maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
 
 # Copy pom.xml and download dependencies (cached layer)
@@ -17,7 +17,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Run the application
-FROM eclipse-temurin:17-jre-alpine
+FROM registry.loftyworks.systems/docker-hub/alpine/java:21-jdk
 WORKDIR /app
 
 # Create a non-root user
