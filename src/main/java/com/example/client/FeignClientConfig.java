@@ -1,7 +1,9 @@
 package com.example.client;
 
+import com.example.interceptor.FeignRequestIdInterceptor;
 import feign.Logger;
 import feign.Request;
+import feign.RequestInterceptor;
 import feign.Retryer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,11 +12,12 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Configuration class for Feign clients.
- * 
+ *
  * This configuration sets up common settings for all Feign clients including:
  * - Connection and read timeouts
  * - Retry logic
  * - Logging level
+ * - Request ID propagation
  */
 @Configuration
 public class FeignClientConfig {
@@ -68,6 +71,17 @@ public class FeignClientConfig {
     @Bean
     public Logger feignLogger() {
         return new SingleLineLogger();
+    }
+
+    /**
+     * Configure request interceptor to propagate requestId from MDC to outgoing requests.
+     * This enables request tracing across microservices by forwarding the requestId header.
+     *
+     * @return RequestInterceptor that adds requestId header to all Feign requests
+     */
+    @Bean
+    public RequestInterceptor feignRequestIdInterceptor() {
+        return new FeignRequestIdInterceptor();
     }
 }
 
