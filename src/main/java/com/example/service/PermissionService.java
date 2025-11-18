@@ -32,12 +32,15 @@ public class PermissionService {
     }
 
     public List<String> getPermissionsByUserId(UUID userId) {
-        return userPermissions.getOrDefault(userId, Collections.emptyList());
+        List<String> permissions = userPermissions.getOrDefault(userId, Collections.emptyList());
+        log.info("Permissions for user {} {}", userId, permissions);
+        return permissions;
     }
 
     public void addPermission(UUID userId, String permission) {
         log.info("Adding permission {} for user {}", permission, userId);
         userPermissions.computeIfAbsent(userId, k -> new ArrayList<>()).add(permission);
+        log.info("Permission added for user {}. Permissions: {}", userId, userPermissions.get(userId));
     }
 }
 

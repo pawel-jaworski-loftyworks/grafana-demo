@@ -39,7 +39,7 @@ scrape_configs:
             requestId: requestId
             appId: appId
             userId: userId
-            stackTrace: stack_trace
+            stack_trace: stack_trace
 
       # Extract timestamp if available
       - timestamp:
@@ -52,6 +52,7 @@ scrape_configs:
           level:
           requestId:
           thread:
+          stack_trace:
 
       # Output the message
       - output:
