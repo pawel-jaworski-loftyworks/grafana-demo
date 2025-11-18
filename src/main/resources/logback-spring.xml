@@ -21,7 +21,6 @@
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <!-- Include standard fields -->
             <includeMdcKeyName>requestId</includeMdcKeyName>
-            <includeMdcKeyName>appId</includeMdcKeyName>
             <includeMdcKeyName>userId</includeMdcKeyName>
 
             <!-- Customize field names if needed -->
@@ -32,6 +31,7 @@
                 <thread>thread</thread>
                 <level>level</level>
                 <levelValue>[ignore]</levelValue>
+                <version>[ignore]</version>
             </fieldNames>
 
             <!-- Add custom fields -->

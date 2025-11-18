@@ -49,6 +49,8 @@ scrape_configs:
       - labels:
           application:
           level:
+          requestId:
+          thread:
 
       # Output the message
       - output:
