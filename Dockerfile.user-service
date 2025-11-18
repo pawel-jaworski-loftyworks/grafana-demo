@@ -28,7 +28,7 @@ COPY --from=build /app/target/*.jar app.jar
 
 # Set the profile for user service
 ENV SPRING_PROFILES_ACTIVE=user-service
-ENV SERVER_PORT=8081
+ENV SERVER_PORT=8080
 
 # Expose port
 EXPOSE 8080
