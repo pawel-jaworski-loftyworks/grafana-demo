@@ -50,20 +50,23 @@ scrape_configs:
       - static_labels:
           job: docker
 
-      # Set labels from JSON if available (only low-cardinality fields)
+      # Set labels from JSON if available
+      # WARNING: requestId has high cardinality but is included as a label for easier filtering
       - labels:
           application:
           level:
+          requestId:
 
-      # Keep stack_trace as structured metadata (not a label!)
-      # This makes it searchable and filterable without creating high cardinality
+      # Keep other high-cardinality fields as structured metadata (not labels!)
+      # This makes them searchable and filterable without creating high cardinality issues
       - structured_metadata:
           stack_trace:
           logger:
           thread:
-          requestId:
+          appId:
+          userId:
 
-      # Output just the message (stack_trace is in structured metadata)
+      # Output just the message (other fields are in structured metadata)
       - output:
           source: message
 
