@@ -20,10 +20,10 @@ scrape_configs:
         regex: '/(user-service|document-service|permission-service)'
         action: keep
 
-      # Extract service name from container name (this becomes a static label)
+      # Extract service name from container name (this becomes a label)
       - source_labels: ['__meta_docker_container_name']
         regex: '/(.*)'
-        target_label: '__service__'
+        target_label: 'container_name'
 
     # Pipeline to parse JSON logs
     pipeline_stages:
@@ -46,15 +46,24 @@ scrape_configs:
           source: timestamp
           format: RFC3339
 
-      # Set labels - use application as the main label
+      # Set static label for job to ensure at least one label exists
+      - static_labels:
+          job: docker
+
+      # Set labels from JSON if available (only low-cardinality fields)
       - labels:
           application:
           level:
-          requestId:
-          thread:
-          stack_trace:
 
-      # Output the message
+      # Keep stack_trace as structured metadata (not a label!)
+      # This makes it searchable and filterable without creating high cardinality
+      - structured_metadata:
+          stack_trace:
+          logger:
+          thread:
+          requestId:
+
+      # Output just the message (stack_trace is in structured metadata)
       - output:
           source: message
 

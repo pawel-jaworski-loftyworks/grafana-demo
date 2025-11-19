@@ -88,12 +88,13 @@ services:
     container_name: loki
     ports:
       - "3100:3100"
-    command: -config.file=/etc/loki/local-config.yaml
+    command: -config.file=/etc/loki/config.yaml
     networks:
       - app-network
     restart: unless-stopped
     volumes:
       - loki-data:/loki
+      - ./loki-config.yml:/etc/loki/config.yaml
 
   # Promtail - Log collector
   promtail:
