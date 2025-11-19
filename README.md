@@ -22,6 +22,14 @@ mvn spring-boot:run
 
 The application will start on `http://localhost:8080`
 
+## Quick start
+
+Please consult [QUICK_START.md](QUICK_START.md) for instructions on how to run the application with Docker. Here is TL;DR
+
+```bash
+docker-compose down && docker-compose up -d --build
+```
+
 ## API Endpoints
 
 ### 1. Users Endpoint
