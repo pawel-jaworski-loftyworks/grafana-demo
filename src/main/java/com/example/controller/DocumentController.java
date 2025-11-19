@@ -36,7 +36,7 @@ public class DocumentController {
         User user = userServiceClient.getUserById(userId);
         log.info("User found: {} {}. Checking permissions", userId, user.username());
         List<String> permissions = permissionServiceClient.getPermissionsByUserId(userId);
-        if (permissions == null || permissions.contains("document-read")) {
+        if (permissions == null || !permissions.contains("document-read")) {
             log.info("User has no permission to fetch documents");
             throw new InsufficientPrivilegesException("User has no permission to fetch documents");
         }
