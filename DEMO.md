@@ -21,3 +21,9 @@ Get documents for user
 ```bash
 curl -H "requestId: $(uuidgen)" http://localhost:8082/api/documents/user/$USER_ID
 ```
+
+Get an exception
+
+```bash
+curl -H "requestId: $(uuidgen)" http://localhost:8082/api/documents/user/$(uuidgen)
+```

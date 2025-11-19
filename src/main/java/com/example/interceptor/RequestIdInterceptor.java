@@ -17,7 +17,7 @@ import java.util.UUID;
 @Component
 public class RequestIdInterceptor implements HandlerInterceptor {
 
-    private static final String REQUEST_ID_HEADER = "requestId";
+    private static final String REQUEST_ID_HEADER = "X-Request-ID";
     private static final String REQUEST_ID_MDC_KEY = "requestId";
     private static final String APP_ID_MDC_KEY = "appId";
 
