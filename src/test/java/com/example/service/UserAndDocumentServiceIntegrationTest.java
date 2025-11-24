@@ -70,6 +70,9 @@ class UserAndDocumentServiceIntegrationTest {
                 createdUser.id()
         );
 
+        assertThat(getResponse.id()).isEqualTo(createdUser.id());
+        assertThat(getResponse.username()).isEqualTo("testuser");
+
         // And: Permissions should have been added for the user
         List<String> permissions = permissionServiceClient.getPermissionsByUserId(
                 createdUser.id()
