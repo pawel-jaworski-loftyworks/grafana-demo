@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.client.PermissionServiceClient;
 import com.example.client.UserServiceClient;
+import com.example.dto.Document;
 import com.example.exception.InsufficientPrivilegesException;
 import com.example.model.User;
 import com.example.service.DocumentService;
@@ -31,7 +32,7 @@ public class DocumentController {
     }
 
     @GetMapping("/user/{userId}")
-    public List<String> getDocumentsByUserId(@PathVariable UUID userId) {
+    public List<Document> getDocumentsByUserId(@PathVariable UUID userId) {
         log.info("Fetching documents for user: {}", userId);
         User user = userServiceClient.getUserById(userId);
         log.info("User found: {} {}. Checking permissions", userId, user.username());
@@ -45,7 +46,7 @@ public class DocumentController {
     }
 
     @PostMapping("/user/{userId}")
-    public ResponseEntity<Void> addDocument(@PathVariable UUID userId, @RequestBody String document) {
+    public ResponseEntity<Void> addDocument(@PathVariable UUID userId, @RequestBody Document document) {
         documentService.addDocument(userId, document);
         return ResponseEntity.ok().build();
     }
